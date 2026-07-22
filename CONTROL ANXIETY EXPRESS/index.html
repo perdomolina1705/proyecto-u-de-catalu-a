@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Anxiety Express | Dashboard de Autorregulación</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-icon"></div>
+                <h1>Control Anxiety Express</h1>
+            </div>
+            <p class="subtitle">Panel Ejecutivo de Monitorización y Gestión Emocional</p>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        
+        <!-- Columna Izquierda: Configuración y Registro -->
+        <section class="column">
+            
+            <!-- Tarjeta 1: Definición de Capacidad Inicial -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>1. Tolerancia al Estrés Diario</h2>
+                    <span class="badge badge-neutral">Parámetro Base</span>
+                </div>
+                <div class="card-body">
+                    <label for="maxTolerance">Define tu límite / Batería Emocional del día (Puntos):</label>
+                    <div class="input-group">
+                        <input type="number" id="maxTolerance" value="10" min="1" max="100">
+                        <button type="button" id="btnSetTolerance" class="btn btn-secondary">Establecer</button>
+                    </div>
+                    <small class="help-text">Establece la cantidad máxima de carga de estrés que consideras manejable hoy.</small>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2: Formulario de Eventos y Estrategias -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>2. Registrar Evento o Estrategia</h2>
+                    <span class="badge badge-info">Registro Activo</span>
+                </div>
+                <form id="trackerForm" class="card-body">
+                    <div class="form-group">
+                        <label for="itemTitle">Descripción del evento o acción:</label>
+                        <input type="text" id="itemTitle" placeholder="Ej. Reunión de presupuesto, Ejercicio de respiración..." required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="itemType">Tipo de registro:</label>
+                            <select id="itemType" required>
+                                <option value="trigger">Disparador (Aumenta Ansiedad)</option>
+                                <option value="strategy">Estrategia de Calma (Reduce Ansiedad)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemImpact">Impacto (1 - 10):</label>
+                            <input type="number" id="itemImpact" min="1" max="10" value="3" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Agregar al Panel</button>
+                </form>
+            </div>
+
+        </section>
+
+        <!-- Columna Derecha: Indicadores y Lista de Gestión -->
+        <section class="column">
+            
+            <!-- Tarjeta 3: Barra de Progreso e Indicadores -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>3. Estado del Nivel de Ansiedad</h2>
+                    <span id="statusBadge" class="badge badge-success">Zona de Calma</span>
+                </div>
+                <div class="card-body">
+                    <div class="metrics-summary">
+                        <div>
+                            <span class="metric-label">Ansiedad Acumulada</span>
+                            <span class="metric-value" id="currentAnxietyVal">0 pts</span>
+                        </div>
+                        <div>
+                            <span class="metric-label">Capacidad Máxima</span>
+                            <span class="metric-value" id="maxToleranceVal">10 pts</span>
+                        </div>
+                        <div>
+                            <span class="metric-label">Nivel de Carga</span>
+                            <span class="metric-value" id="percentageVal">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alerta Dinámica (Oculta por defecto) -->
+            <div id="dynamicAlert" class="alert-box hidden">
+                <div class="alert-header">
+                    <span class="alert-icon">⚠️</span>
+                    <h3>Alerta de Umbral Superado</h3>
+                </div>
+                <p id="alertMessage">Tu nivel de ansiedad acumulado ha superado el 70% de tu tolerancia definida.</p>
+                <div class="breathing-guide">
+                    <h4>Sugerencia Terapéutica Inmediata: Técnica 4-7-8</h4>
+                    <ul>
+                        <li>Inhala aire por la nariz suavemente en <strong>4 segundos</strong>.</li>
+                        <li>Mantén la respiración durante <strong>7 segundos</strong>.</li>
+                        <li>Exhala completamente por la boca durante <strong>8 segundos</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tarjeta 5: Lista de Disparadores y Estrategias -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>5. Gestión de Factores Registrados</h2>
+                    <button type="button" id="btnClearAll" class="btn-text">Limpiar todo</button>
+                </div>
+                <div class="card-body">
+                    <ul id="itemsList" class="interactive-list">
+                        <!-- Se puebla dinámicamente desde JS -->
+                    </ul>
+                    <div id="emptyState" class="empty-state">
+                        <p>No hay eventos ni estrategias registradas para el día de hoy.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
